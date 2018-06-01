@@ -17,6 +17,7 @@
 		0EA5E98320C0CA8D00D49D0A /* ImageConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5E98220C0CA8D00D49D0A /* ImageConverter.m */; };
 		0EA5E98620C0D04700D49D0A /* UIImage+resizeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5E98520C0D04700D49D0A /* UIImage+resizeImage.swift */; };
 		88FD7468A6907B2AA6DA8E8B /* Pods_HotdogOrNot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 031566D767BC7F84580C807C /* Pods_HotdogOrNot.framework */; };
+		DE99A13C20C1BC30008F51EC /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE99A13B20C1BC2F008F51EC /* Result.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		0EA5E98520C0D04700D49D0A /* UIImage+resizeImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+resizeImage.swift"; sourceTree = "<group>"; };
 		1DDB73828A0D68B5A81276CD /* Pods-HotdogOrNot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HotdogOrNot.release.xcconfig"; path = "Pods/Target Support Files/Pods-HotdogOrNot/Pods-HotdogOrNot.release.xcconfig"; sourceTree = "<group>"; };
 		44E4CA26937A423BBC97C5EB /* Pods-HotdogOrNot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HotdogOrNot.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HotdogOrNot/Pods-HotdogOrNot.debug.xcconfig"; sourceTree = "<group>"; };
+		DE99A13B20C1BC2F008F51EC /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				0EA5E95B20C0B0FB00D49D0A /* AppDelegate.swift */,
+				DE99A13B20C1BC2F008F51EC /* Result.swift */,
 				0EA1E03D20C0D898007967F2 /* Mercadolibre.swift */,
 				0EA5E95D20C0B0FB00D49D0A /* ViewController.swift */,
 				0EA5E95F20C0B0FB00D49D0A /* Main.storyboard */,
@@ -141,7 +144,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = ucu.joliu;
 				TargetAttributes = {
 					0EA5E95720C0B0FB00D49D0A = {
@@ -209,14 +212,14 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-HotdogOrNot/Pods-HotdogOrNot-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Gloss/Gloss.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gloss.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -234,6 +237,7 @@
 				0EA5E97A20C0BBF800D49D0A /* Inceptionv3.mlmodel in Sources */,
 				0EA1E03E20C0D898007967F2 /* Mercadolibre.swift in Sources */,
 				0EA5E98620C0D04700D49D0A /* UIImage+resizeImage.swift in Sources */,
+				DE99A13C20C1BC30008F51EC /* Result.swift in Sources */,
 				0EA5E95C20C0B0FB00D49D0A /* AppDelegate.swift in Sources */,
 				0EA5E98320C0CA8D00D49D0A /* ImageConverter.m in Sources */,
 			);
@@ -275,6 +279,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -282,6 +287,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -309,7 +315,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -332,6 +338,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -339,6 +346,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -360,7 +368,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -375,6 +383,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KK52N67KWG;
 				INFOPLIST_FILE = HotdogOrNot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = UCU.HotdogOrNot;
@@ -393,6 +402,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KK52N67KWG;
 				INFOPLIST_FILE = HotdogOrNot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = UCU.HotdogOrNot;

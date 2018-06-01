@@ -52,13 +52,16 @@ class ViewController: UIViewController, UITabBarDelegate, UIImagePickerControlle
     // MARK: Image picker
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
+        guard var image = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
         imageView.contentMode = .scaleAspectFit
+        image = image.cropToBounds(width: 299, height: 299)
         imageView.image = image
         dismiss(animated: true, completion: nil)
         let resizedImage = image.resizeImage(targetSize: modelInputSize)
         guard let cgImage = resizedImage.cgImage, let pixelBuffer = ImageConverter.pixelBuffer(from: cgImage)?.takeRetainedValue(),
         let output = try? model.prediction(image: pixelBuffer) else { return }
-        print(output.classLabel)
+        print(output.classLabel.split(separator: ","))
+        Mercadolibre().searchProduct(withName: String(output.classLabel.split(separator: ",").first!), completion: nil)
+//        output.classLabel.split(separator: ",").forEach({ Mercadolibre().searchProduct(withName: String($0)) })
     }
 }

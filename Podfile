@@ -11,6 +11,6 @@ target 'HotdogOrNot' do
 
 pod 'Alamofire'
 pod 'SVProgressHUD'
-pod 'SwiftyJSON'
+pod 'Gloss'
 
 end
