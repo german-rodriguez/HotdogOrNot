@@ -1,0 +1,6 @@
+framework module Pods_HotdogOrNot {
+  umbrella header "Pods-HotdogOrNot-umbrella.h"
+
+  export *
+  module * { export * }
+}
