@@ -18,6 +18,7 @@
 		0EA5E97A20C0BBF800D49D0A /* Inceptionv3.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5E97920C0BBF800D49D0A /* Inceptionv3.mlmodel */; };
 		0EA5E98620C0D04700D49D0A /* UIImage+resizeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5E98520C0D04700D49D0A /* UIImage+resizeImage.swift */; };
 		88FD7468A6907B2AA6DA8E8B /* Pods_HotdogOrNot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 031566D767BC7F84580C807C /* Pods_HotdogOrNot.framework */; };
+		DE0EFD2D20C9D99900985B3E /* PastSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0EFD2C20C9D99900985B3E /* PastSearch.swift */; };
 		DE40089A20C1E8A600531E29 /* ProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE40089820C1E8A600531E29 /* ProductTableViewCell.swift */; };
 		DE40089B20C1E8A600531E29 /* ProductTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE40089920C1E8A600531E29 /* ProductTableViewCell.xib */; };
 		DE40089D20C1F07600531E29 /* ProductTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE40089C20C1F07600531E29 /* ProductTableViewController.swift */; };
@@ -42,6 +43,7 @@
 		0EA5E98520C0D04700D49D0A /* UIImage+resizeImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+resizeImage.swift"; sourceTree = "<group>"; };
 		1DDB73828A0D68B5A81276CD /* Pods-HotdogOrNot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HotdogOrNot.release.xcconfig"; path = "Pods/Target Support Files/Pods-HotdogOrNot/Pods-HotdogOrNot.release.xcconfig"; sourceTree = "<group>"; };
 		44E4CA26937A423BBC97C5EB /* Pods-HotdogOrNot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HotdogOrNot.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HotdogOrNot/Pods-HotdogOrNot.debug.xcconfig"; sourceTree = "<group>"; };
+		DE0EFD2C20C9D99900985B3E /* PastSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastSearch.swift; sourceTree = "<group>"; };
 		DE40089820C1E8A600531E29 /* ProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTableViewCell.swift; sourceTree = "<group>"; };
 		DE40089920C1E8A600531E29 /* ProductTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductTableViewCell.xib; sourceTree = "<group>"; };
 		DE40089C20C1F07600531E29 /* ProductTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTableViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				DE99A13B20C1BC2F008F51EC /* Product.swift */,
 				0EA1E03D20C0D898007967F2 /* API.swift */,
 				0EA5E95D20C0B0FB00D49D0A /* ViewController.swift */,
+				DE0EFD2C20C9D99900985B3E /* PastSearch.swift */,
 				DE40089C20C1F07600531E29 /* ProductTableViewController.swift */,
 				0EA5E95F20C0B0FB00D49D0A /* Main.storyboard */,
 				0E39601B20C8B16100D48962 /* ProductLinkViewController.swift */,
@@ -227,6 +230,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Gloss/Gloss.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -234,6 +238,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gloss.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -253,6 +258,7 @@
 				DE40089D20C1F07600531E29 /* ProductTableViewController.swift in Sources */,
 				DE40089A20C1E8A600531E29 /* ProductTableViewCell.swift in Sources */,
 				0EA5E97A20C0BBF800D49D0A /* Inceptionv3.mlmodel in Sources */,
+				DE0EFD2D20C9D99900985B3E /* PastSearch.swift in Sources */,
 				0E39601C20C8B16100D48962 /* ProductLinkViewController.swift in Sources */,
 				0EA1E03E20C0D898007967F2 /* API.swift in Sources */,
 				0EA5E98620C0D04700D49D0A /* UIImage+resizeImage.swift in Sources */,

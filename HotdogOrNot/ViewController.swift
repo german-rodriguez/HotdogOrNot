@@ -10,6 +10,7 @@ import UIKit
 import CoreML
 import Vision
 import SVProgressHUD
+import Realm
 
 class ViewController: UIViewController, UITabBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -81,10 +82,16 @@ class ViewController: UIViewController, UITabBarDelegate, UIImagePickerControlle
         let output = try? model.prediction(image: pixelBuffer) else { return }
         print(output.classLabel.split(separator: ","))
         let firstProduct = String(output.classLabel.split(separator: ",").first!)
+        
         SVProgressHUD.show()
         API().searchProduct(withName: firstProduct) { productArray in
             self.productArray = productArray
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                let realm = RLMRealm.default()
+                realm.beginWriteTransaction()
+                let search = PastSearch(image: image, name: firstProduct, products: productArray)
+                realm.add(search)
+                try! realm.commitWriteTransactionWithoutNotifying([])
                 SVProgressHUD.dismiss()
                 self.performSegue(withIdentifier: "goToProducts", sender: nil)
             }
