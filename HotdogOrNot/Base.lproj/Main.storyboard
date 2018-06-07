@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ulm-Hi-0cb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,10 +19,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dK5-Sd-KGP">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="598"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5cb-WW-SJm">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="598"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="375" id="H0u-iw-Uov"/>
                                         </constraints>
@@ -65,9 +65,7 @@
                     <connections>
                         <outlet property="imageView" destination="5cb-WW-SJm" id="vDF-kR-DhQ"/>
                         <outlet property="tabBar" destination="WS3-KO-xaL" id="VHf-z3-ZyV"/>
-                        <segue destination="Et1-ob-feT" kind="popoverPresentation" identifier="goToProducts" popoverAnchorView="WS3-KO-xaL" id="L8U-Q9-n9M">
-                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                        </segue>
+                        <segue destination="ekt-5K-QGz" kind="presentation" identifier="goToProducts" id="L8U-Q9-n9M"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -89,7 +87,19 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="VzP-PS-ot5">
+                        <barButtonItem key="backBarButtonItem" title=" " id="6v3-DR-wfv"/>
+                        <barButtonItem key="leftBarButtonItem" image="left-arrow" id="eju-TE-Vms">
+                            <color key="tintColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="actionBack:" destination="Et1-ob-feT" id="r3X-12-OKs"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="tvp-ii-cAi" kind="show" identifier="goToWebView" id="QVR-kG-vOZ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z71-fT-Bac" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationBar contentMode="scaleToFill" id="ZyT-o9-hOB">
@@ -102,30 +112,73 @@
                     </items>
                 </navigationBar>
             </objects>
-            <point key="canvasLocation" x="964" y="847"/>
+            <point key="canvasLocation" x="1671" y="846"/>
+        </scene>
+        <!--Product Link View Controller-->
+        <scene sceneID="wBj-H3-kg8">
+            <objects>
+                <viewController id="tvp-ii-cAi" customClass="ProductLinkViewController" customModule="HotdogOrNot" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="veo-Od-sxr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w0Y-wl-94f">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="w0Y-wl-94f" firstAttribute="top" secondItem="veo-Od-sxr" secondAttribute="top" id="PrR-ma-96F"/>
+                            <constraint firstItem="w0Y-wl-94f" firstAttribute="leading" secondItem="jBl-8E-zX2" secondAttribute="leading" id="SJi-o2-W6i"/>
+                            <constraint firstItem="w0Y-wl-94f" firstAttribute="trailing" secondItem="jBl-8E-zX2" secondAttribute="trailing" id="nIy-5f-YDu"/>
+                            <constraint firstItem="w0Y-wl-94f" firstAttribute="bottom" secondItem="jBl-8E-zX2" secondAttribute="bottom" id="qVH-2c-mq8"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="jBl-8E-zX2"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="JQ9-Ta-VnZ">
+                        <barButtonItem key="leftBarButtonItem" image="left-arrow" id="u0n-J3-jRb">
+                            <color key="tintColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="actionBack:" destination="tvp-ii-cAi" id="DVs-Sl-Zcy"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="webView" destination="w0Y-wl-94f" id="CkF-nc-rov"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="u1Z-cg-KWn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2398" y="845"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="3v1-tf-pzY">
+        <scene sceneID="s0G-MV-PUD">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ulm-Hi-0cb" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ekt-5K-QGz" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ale-hr-muG">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="uuS-gP-d0b">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Z6g-ti-Mge"/>
+                        <segue destination="Et1-ob-feT" kind="relationship" relationship="rootViewController" id="ncI-Ao-vxy"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="US8-eP-Tqm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="N6j-9k-WJO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="24.800000000000001" y="31.934032983508249"/>
+            <point key="canvasLocation" x="963.20000000000005" y="846.47676161919048"/>
         </scene>
     </scenes>
     <resources>
         <image name="camera" width="41" height="41"/>
         <image name="draw" width="41" height="41"/>
+        <image name="left-arrow" width="16" height="16"/>
         <image name="picture" width="41" height="41"/>
     </resources>
 </document>

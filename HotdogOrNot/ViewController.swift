@@ -52,7 +52,7 @@ class ViewController: UIViewController, UITabBarDelegate, UIImagePickerControlle
         case 0:
             print("camera")
             if !UIImagePickerController.isSourceTypeAvailable(.camera){
-                let alert = UIAlertController(title: nil, message: "No camera available", preferredStyle: .alert)
+                let alert = UIAlertController(title: nil, message: "Device camera is unavailable", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
                 self.present(alert, animated: true)
             }
@@ -92,9 +92,9 @@ class ViewController: UIViewController, UITabBarDelegate, UIImagePickerControlle
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
+        switch segue.identifier! {
         case "goToProducts":
-            let destination = segue.destination as! ProductTableViewController
+            guard let navController = segue.destination as? UINavigationController, let destination = navController.viewControllers.first as? ProductTableViewController else { return }
             destination.productArray = productArray
         default:
             return
