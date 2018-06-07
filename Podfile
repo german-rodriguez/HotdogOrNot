@@ -10,6 +10,7 @@ target 'HotdogOrNot' do
   # Pods for HotdogOrNot
 
 pod 'Alamofire'
+pod 'AlamofireImage' 
 pod 'SVProgressHUD'
 pod 'Gloss'
 

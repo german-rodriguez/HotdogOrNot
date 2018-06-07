@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0EA1E03E20C0D898007967F2 /* Mercadolibre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA1E03D20C0D898007967F2 /* Mercadolibre.swift */; };
+		0EA1E03E20C0D898007967F2 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA1E03D20C0D898007967F2 /* API.swift */; };
 		0EA5E95C20C0B0FB00D49D0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5E95B20C0B0FB00D49D0A /* AppDelegate.swift */; };
 		0EA5E95E20C0B0FB00D49D0A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5E95D20C0B0FB00D49D0A /* ViewController.swift */; };
 		0EA5E96120C0B0FB00D49D0A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EA5E95F20C0B0FB00D49D0A /* Main.storyboard */; };
@@ -17,12 +17,15 @@
 		0EA5E98320C0CA8D00D49D0A /* ImageConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5E98220C0CA8D00D49D0A /* ImageConverter.m */; };
 		0EA5E98620C0D04700D49D0A /* UIImage+resizeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5E98520C0D04700D49D0A /* UIImage+resizeImage.swift */; };
 		88FD7468A6907B2AA6DA8E8B /* Pods_HotdogOrNot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 031566D767BC7F84580C807C /* Pods_HotdogOrNot.framework */; };
-		DE99A13C20C1BC30008F51EC /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE99A13B20C1BC2F008F51EC /* Result.swift */; };
+		DE40089A20C1E8A600531E29 /* ProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE40089820C1E8A600531E29 /* ProductTableViewCell.swift */; };
+		DE40089B20C1E8A600531E29 /* ProductTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE40089920C1E8A600531E29 /* ProductTableViewCell.xib */; };
+		DE40089D20C1F07600531E29 /* ProductTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE40089C20C1F07600531E29 /* ProductTableViewController.swift */; };
+		DE99A13C20C1BC30008F51EC /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE99A13B20C1BC2F008F51EC /* Product.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		031566D767BC7F84580C807C /* Pods_HotdogOrNot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HotdogOrNot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0EA1E03D20C0D898007967F2 /* Mercadolibre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mercadolibre.swift; sourceTree = "<group>"; };
+		0EA1E03D20C0D898007967F2 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		0EA5E95820C0B0FB00D49D0A /* HotdogOrNot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HotdogOrNot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EA5E95B20C0B0FB00D49D0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0EA5E95D20C0B0FB00D49D0A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -37,7 +40,10 @@
 		0EA5E98520C0D04700D49D0A /* UIImage+resizeImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+resizeImage.swift"; sourceTree = "<group>"; };
 		1DDB73828A0D68B5A81276CD /* Pods-HotdogOrNot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HotdogOrNot.release.xcconfig"; path = "Pods/Target Support Files/Pods-HotdogOrNot/Pods-HotdogOrNot.release.xcconfig"; sourceTree = "<group>"; };
 		44E4CA26937A423BBC97C5EB /* Pods-HotdogOrNot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HotdogOrNot.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HotdogOrNot/Pods-HotdogOrNot.debug.xcconfig"; sourceTree = "<group>"; };
-		DE99A13B20C1BC2F008F51EC /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		DE40089820C1E8A600531E29 /* ProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTableViewCell.swift; sourceTree = "<group>"; };
+		DE40089920C1E8A600531E29 /* ProductTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductTableViewCell.xib; sourceTree = "<group>"; };
+		DE40089C20C1F07600531E29 /* ProductTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTableViewController.swift; sourceTree = "<group>"; };
+		DE99A13B20C1BC2F008F51EC /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,9 +80,10 @@
 			isa = PBXGroup;
 			children = (
 				0EA5E95B20C0B0FB00D49D0A /* AppDelegate.swift */,
-				DE99A13B20C1BC2F008F51EC /* Result.swift */,
-				0EA1E03D20C0D898007967F2 /* Mercadolibre.swift */,
+				DE99A13B20C1BC2F008F51EC /* Product.swift */,
+				0EA1E03D20C0D898007967F2 /* API.swift */,
 				0EA5E95D20C0B0FB00D49D0A /* ViewController.swift */,
+				DE40089C20C1F07600531E29 /* ProductTableViewController.swift */,
 				0EA5E95F20C0B0FB00D49D0A /* Main.storyboard */,
 				0EA5E96720C0B0FB00D49D0A /* Info.plist */,
 				0EA5E98120C0CA8D00D49D0A /* HotdogOrNot-Bridging-Header.h */,
@@ -89,6 +96,8 @@
 		0EA5E97C20C0BC2000D49D0A /* Supporting files */ = {
 			isa = PBXGroup;
 			children = (
+				DE40089820C1E8A600531E29 /* ProductTableViewCell.swift */,
+				DE40089920C1E8A600531E29 /* ProductTableViewCell.xib */,
 				0EA5E98220C0CA8D00D49D0A /* ImageConverter.m */,
 				0EA5E98420C0CA9D00D49D0A /* ImageConverter.h */,
 				0EA5E98520C0D04700D49D0A /* UIImage+resizeImage.swift */,
@@ -178,6 +187,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0EA5E96620C0B0FB00D49D0A /* LaunchScreen.storyboard in Resources */,
+				DE40089B20C1E8A600531E29 /* ProductTableViewCell.xib in Resources */,
 				0EA5E96320C0B0FB00D49D0A /* Assets.xcassets in Resources */,
 				0EA5E96120C0B0FB00D49D0A /* Main.storyboard in Resources */,
 			);
@@ -212,12 +222,14 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-HotdogOrNot/Pods-HotdogOrNot-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Gloss/Gloss.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gloss.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 			);
@@ -234,10 +246,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0EA5E95E20C0B0FB00D49D0A /* ViewController.swift in Sources */,
+				DE40089D20C1F07600531E29 /* ProductTableViewController.swift in Sources */,
+				DE40089A20C1E8A600531E29 /* ProductTableViewCell.swift in Sources */,
 				0EA5E97A20C0BBF800D49D0A /* Inceptionv3.mlmodel in Sources */,
-				0EA1E03E20C0D898007967F2 /* Mercadolibre.swift in Sources */,
+				0EA1E03E20C0D898007967F2 /* API.swift in Sources */,
 				0EA5E98620C0D04700D49D0A /* UIImage+resizeImage.swift in Sources */,
-				DE99A13C20C1BC30008F51EC /* Result.swift in Sources */,
+				DE99A13C20C1BC30008F51EC /* Product.swift in Sources */,
 				0EA5E95C20C0B0FB00D49D0A /* AppDelegate.swift in Sources */,
 				0EA5E98320C0CA8D00D49D0A /* ImageConverter.m in Sources */,
 			);

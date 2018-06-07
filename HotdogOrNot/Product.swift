@@ -9,24 +9,30 @@
 import Foundation
 import Gloss
 
-class Result: Glossy {
+class Product: Glossy {
     
     var title: String?
     var acceptsMercadopago: Bool?
-    var quantity: Int?
     var link: String?
     var averageRating: Double?
-    var freeShipping: Bool?
-    var thumbnailURL: String?
-
+    var hasFreeShipping: Bool?
+//    var thumbnailURL: String?
+    var thumbnail: UIImage?
+    
     required init?(json: JSON) {
         title = "title" <~~ json
         acceptsMercadopago = "accepts_mercadopago" <~~ json
-        quantity = "available_quantity" <~~ json
         link = "permalink" <~~ json
         averageRating = "reviews.rating_average" <~~ json
-        freeShipping = "shipping.free_shipping" <~~ json
-        thumbnailURL = "thumbnail" <~~ json
+        hasFreeShipping = "shipping.free_shipping" <~~ json
+        let thumbnailURL: String? = "thumbnail" <~~ json
+        API().fetchImage(withURL: thumbnailURL!) { (image) in
+            if let image = image {
+                self.thumbnail = image
+            } else {
+                self.thumbnail = UIImage(named: "image-not-found")
+            }
+        }
     }
     
     func toJSON() -> JSON? {

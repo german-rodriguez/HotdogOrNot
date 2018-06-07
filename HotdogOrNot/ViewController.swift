@@ -9,15 +9,18 @@
 import UIKit
 import CoreML
 import Vision
+import SVProgressHUD
 
 class ViewController: UIViewController, UITabBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var tabBar: UITabBar!
     @IBOutlet weak var imageView: UIImageView!
-    
+
     let model = Inceptionv3()
     let modelInputSize = CGSize(width: 299, height: 299)
     let imagePicker = UIImagePickerController()
+    
+    var productArray: [Product]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,12 +34,28 @@ class ViewController: UIViewController, UITabBarDelegate, UIImagePickerControlle
         })
     }
     
-    // MARK: Tab bar
+    override func viewWillAppear(_ animated: Bool) {
+        if !UIImagePickerController.isSourceTypeAvailable(.camera){
+            print("no cam")
+            tabBar.selectedItem = tabBar.items![1]
+        } else {
+            tabBar.selectedItem = tabBar.items![0]
+        }
+        
+        super.viewWillAppear(animated)
+    }
     
+    // MARK: Tab bar
+
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         switch item.tag {
         case 0:
             print("camera")
+            if !UIImagePickerController.isSourceTypeAvailable(.camera){
+                let alert = UIAlertController(title: nil, message: "No camera available", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+                self.present(alert, animated: true)
+            }
         case 1:
             imagePicker.allowsEditing = false
             imagePicker.sourceType = .photoLibrary
@@ -61,7 +80,24 @@ class ViewController: UIViewController, UITabBarDelegate, UIImagePickerControlle
         guard let cgImage = resizedImage.cgImage, let pixelBuffer = ImageConverter.pixelBuffer(from: cgImage)?.takeRetainedValue(),
         let output = try? model.prediction(image: pixelBuffer) else { return }
         print(output.classLabel.split(separator: ","))
-        Mercadolibre().searchProduct(withName: String(output.classLabel.split(separator: ",").first!), completion: nil)
-//        output.classLabel.split(separator: ",").forEach({ Mercadolibre().searchProduct(withName: String($0)) })
+        let firstProduct = String(output.classLabel.split(separator: ",").first!)
+        SVProgressHUD.show()
+        API().searchProduct(withName: firstProduct) { productArray in
+            self.productArray = productArray
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                SVProgressHUD.dismiss()
+                self.performSegue(withIdentifier: "goToProducts", sender: nil)
+            }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "goToProducts":
+            let destination = segue.destination as! ProductTableViewController
+            destination.productArray = productArray
+        default:
+            return
+        }
     }
 }
