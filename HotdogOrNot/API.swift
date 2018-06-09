@@ -14,6 +14,8 @@ import Gloss
 
 class API {
  
+    static var shared = API()
+    
     func fetchImage(withURL url: String, completion: ((UIImage?) -> Void)?) {
         Alamofire.request(url.replacingOccurrences(of: "http", with: "https")).responseData { (response) in
             switch response.result {
@@ -26,7 +28,7 @@ class API {
         }
     }
     
-    func searchProduct(withName product: String, completion: (([Product]) -> Void)?) {
+    func searchProduct(withName product: String, completion: (([Product]) throws -> Void)?) {
         let url = "https://api.mercadolibre.com/sites/MLA/search?q=\(product.replacingOccurrences(of: " ", with: "+"))"
         Alamofire.request(url).responseJSON { (response) in
             switch response.result {
@@ -36,7 +38,7 @@ class API {
                 print(results)
                 var resultsArray = [Product]()
                 results.forEach({ if let result = Product(json: $0) { resultsArray.append(result) }})
-                completion?(resultsArray)
+                try? completion?(resultsArray)
             case .failure(let error):
                 print(error)
             }

@@ -8,25 +8,32 @@
 
 import Foundation
 import Gloss
+import RealmSwift
+import Realm
 
-class Product: Glossy {
+class Product: Object, Glossy {
     
-    var title: String?
-    var acceptsMercadopago: Bool?
-    var link: String?
-    var averageRating: Double?
-    var hasFreeShipping: Bool?
-//    var thumbnailURL: String?
+    @objc dynamic var title: String = ""
+    @objc dynamic var acceptsMercadopago: Bool = false
+    @objc dynamic var link: String = ""
+    var averageRating = RealmOptional<Double>()
+    @objc dynamic var hasFreeShipping: Bool = false
+    @objc dynamic var thumbnailURL: String = ""
     var thumbnail: UIImage?
     
-    required init?(json: JSON) {
-        title = "title" <~~ json
-        acceptsMercadopago = "accepts_mercadopago" <~~ json
-        link = "permalink" <~~ json
-        averageRating = "reviews.rating_average" <~~ json
-        hasFreeShipping = "shipping.free_shipping" <~~ json
-        let thumbnailURL: String? = "thumbnail" <~~ json
-        API().fetchImage(withURL: thumbnailURL!) { (image) in
+    convenience required init?(json: JSON) {
+        self.init()
+        title = ("title" <~~ json ?? "")
+        acceptsMercadopago = ("accepts_mercadopago" <~~ json ?? false)
+        link = ("permalink" <~~ json ?? "")
+        averageRating.value = "reviews.rating_average" <~~ json
+        hasFreeShipping = ("shipping.free_shipping" <~~ json ?? false)
+        self.thumbnailURL = ("thumbnail" <~~ json ?? "")
+    }
+    
+    func getImage(thumbnailURL: String) {
+        guard self.thumbnail != #imageLiteral(resourceName: "image-not-found") else { return }
+        API.shared.fetchImage(withURL: thumbnailURL) { (image) in
             if let image = image {
                 self.thumbnail = image
             } else {
@@ -34,10 +41,8 @@ class Product: Glossy {
             }
         }
     }
-    
+
     func toJSON() -> JSON? {
         return nil
     }
-    
-    
 }

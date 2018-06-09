@@ -7,12 +7,18 @@
 //
 
 import UIKit
-import Realm
+import RealmSwift
 
-class PastSearch: RLMObject {
+@objcMembers class PastSearch: Object {
     
-    @objc dynamic var image: UIImage?
-    @objc dynamic var name: String?
-    var products: [Product]?
+    dynamic var imageData: NSData = NSData()
+    dynamic var name: String = ""
+    dynamic var products = List<Product>()
     
+    convenience init(name: String, imageData: NSData, products: [Product] = []){
+        self.init()
+        self.name = name
+        self.imageData = imageData
+        self.products.append(objectsIn: products)
+    }
 }

@@ -35,28 +35,14 @@ class ProductTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "productTableViewCell", for: indexPath) as! ProductTableViewCell
         let product = productArray[indexPath.row]
-        guard let title = product.title, let hasFreeShipping = product.hasFreeShipping, let acceptsMercadopago = product.acceptsMercadopago, let thumbnail = product.thumbnail else { return cell }
-        cell.productName.text = title
-        cell.freeShipping.isHidden = hasFreeShipping
-        cell.mercadoPago.isHidden = acceptsMercadopago
-        cell.productThumbnail.image = thumbnail
-        if let averageRating = product.averageRating {
-            cell.ratingStars.forEach({
-                if cell.ratingStars.index(of: $0)! < Int(averageRating) {
-                    $0.image = UIImage(named: "star-filled")
-                } else {
-                    $0.image = UIImage(named: "star")
-                }
-            })
-        } else {
-            cell.ratingStars.forEach { $0.isHidden = true }
-        }
+        product.getImage(thumbnailURL: product.thumbnailURL)
+        cell.setUp(title: product.title, hasFreeShipping: product.hasFreeShipping, acceptsMercadoPago: product.acceptsMercadopago, averageRating: product.averageRating.value, thumbnail: product.thumbnail)
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = productArray[indexPath.row]
-        guard let url = URL(string: cell.link!) else { return }
+        guard let url = URL(string: cell.link) else { return }
         productURL = url
         performSegue(withIdentifier: "goToWebView", sender: nil)
     }

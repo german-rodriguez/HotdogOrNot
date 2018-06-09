@@ -10,24 +10,31 @@ import UIKit
 import CoreML
 import Vision
 import SVProgressHUD
-import Realm
+import RealmSwift
 
 class ViewController: UIViewController, UITabBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var tabBar: UITabBar!
     @IBOutlet weak var imageView: UIImageView!
-
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     let model = Inceptionv3()
     let modelInputSize = CGSize(width: 299, height: 299)
     let imagePicker = UIImagePickerController()
     
     var productArray: [Product]?
+    var pastSearchList: Results<PastSearch>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let nib = UINib.init(nibName: "PastSearchCollectionViewCell", bundle: nil)
+        collectionView.register(nib, forCellWithReuseIdentifier: "pastSearchCollectionViewCell")
+        
         tabBar.delegate = self
         imagePicker.delegate = self
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
         tabBar.items!.forEach({
             $0.title = nil
@@ -42,6 +49,8 @@ class ViewController: UIViewController, UITabBarDelegate, UIImagePickerControlle
         } else {
             tabBar.selectedItem = tabBar.items![0]
         }
+        pastSearchList = RealmManager.shared.search(type: PastSearch.self)
+        collectionView.reloadData()
         
         super.viewWillAppear(animated)
     }
@@ -84,14 +93,15 @@ class ViewController: UIViewController, UITabBarDelegate, UIImagePickerControlle
         let firstProduct = String(output.classLabel.split(separator: ",").first!)
         
         SVProgressHUD.show()
-        API().searchProduct(withName: firstProduct) { productArray in
+        API.shared.searchProduct(withName: firstProduct) { productArray in
             self.productArray = productArray
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                let realm = RLMRealm.default()
-                realm.beginWriteTransaction()
-                let search = PastSearch(image: image, name: firstProduct, products: productArray)
-                realm.add(search)
-                try! realm.commitWriteTransactionWithoutNotifying([])
+                let search = PastSearch()
+                search.imageData = NSData(data: UIImagePNGRepresentation(image)!)
+                search.name = firstProduct
+                search.products = List<Product>()
+                search.products.append(objectsIn: productArray)
+                RealmManager.shared.create(object: search)
                 SVProgressHUD.dismiss()
                 self.performSegue(withIdentifier: "goToProducts", sender: nil)
             }
@@ -106,5 +116,25 @@ class ViewController: UIViewController, UITabBarDelegate, UIImagePickerControlle
         default:
             return
         }
+    }
+}
+
+extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return pastSearchList?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "pastSearchCollectionViewCell", for: indexPath) as! PastSearchCollectionViewCell
+        let pastSearch = pastSearchList![indexPath.row]
+        cell.setUp(searchTerm: pastSearch.name, imageData: pastSearch.imageData)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        var products = [Product]()
+        products.append(contentsOf: pastSearchList![indexPath.row].products)
+        self.productArray = products
+        performSegue(withIdentifier: "goToProducts", sender: nil)
     }
 }

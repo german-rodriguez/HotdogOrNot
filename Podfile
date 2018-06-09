@@ -13,6 +13,6 @@ pod 'Alamofire'
 pod 'AlamofireImage' 
 pod 'SVProgressHUD'
 pod 'Gloss'
-pod 'Realm'
+pod 'RealmSwift'
 
 end
