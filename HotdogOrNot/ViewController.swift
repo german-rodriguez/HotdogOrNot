@@ -12,6 +12,10 @@ import Vision
 import SVProgressHUD
 import RealmSwift
 
+
+// TODO: Solve images not loading at first in tableviewcontroller
+// TODO: Fetch previously searched items from realm instead of looking up multiple times
+
 class ViewController: UIViewController, UITabBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var tabBar: UITabBar!
