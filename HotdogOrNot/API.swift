@@ -37,7 +37,9 @@ class API {
                 let results = json["results"] as! [JSON]
                 print(results)
                 var resultsArray = [Product]()
-                results.forEach({ if let result = Product(json: $0) { resultsArray.append(result) }})
+                results.forEach({ if let result = Product(json: $0) {
+                    resultsArray.append(result)
+                    }})
                 try? completion?(resultsArray)
             case .failure(let error):
                 print(error)

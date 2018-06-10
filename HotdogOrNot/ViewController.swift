@@ -14,7 +14,6 @@ import RealmSwift
 
 
 // TODO: Solve images not loading at first in tableviewcontroller
-// TODO: Fetch previously searched items from realm instead of looking up multiple times
 
 class ViewController: UIViewController, UITabBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -85,6 +84,7 @@ class ViewController: UIViewController, UITabBarDelegate, UIImagePickerControlle
     // MARK: Image picker
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
         guard var image = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
         imageView.contentMode = .scaleAspectFit
         image = image.cropToBounds(width: 299, height: 299)
@@ -94,20 +94,25 @@ class ViewController: UIViewController, UITabBarDelegate, UIImagePickerControlle
         guard let cgImage = resizedImage.cgImage, let pixelBuffer = ImageConverter.pixelBuffer(from: cgImage)?.takeRetainedValue(),
         let output = try? model.prediction(image: pixelBuffer) else { return }
         print(output.classLabel.split(separator: ","))
-        let firstProduct = String(output.classLabel.split(separator: ",").first!)
-        
-        SVProgressHUD.show()
-        API.shared.searchProduct(withName: firstProduct) { productArray in
-            self.productArray = productArray
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                let search = PastSearch()
-                search.imageData = NSData(data: UIImagePNGRepresentation(image)!)
-                search.name = firstProduct
-                search.products = List<Product>()
-                search.products.append(objectsIn: productArray)
-                RealmManager.shared.create(object: search)
-                SVProgressHUD.dismiss()
-                self.performSegue(withIdentifier: "goToProducts", sender: nil)
+        let firstProductName = String(output.classLabel.split(separator: ",").first!)
+
+        if let search = pastSearchList?.filter({ return $0.name == firstProductName }).first {
+            self.productArray = [Product](search.products)
+            self.performSegue(withIdentifier: "goToProducts", sender: nil)
+        } else {
+            SVProgressHUD.show()
+            API.shared.searchProduct(withName: firstProductName) { productArray in
+                self.productArray = productArray
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    let search = PastSearch()
+                    search.imageData = NSData(data: UIImagePNGRepresentation(image)!)
+                    search.name = firstProductName
+                    search.products = List<Product>()
+                    search.products.append(objectsIn: productArray)
+                    RealmManager.shared.create(object: search)
+                    SVProgressHUD.dismiss()
+                    self.performSegue(withIdentifier: "goToProducts", sender: nil)
+                }
             }
         }
     }

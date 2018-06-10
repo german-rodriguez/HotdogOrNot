@@ -132,15 +132,6 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z71-fT-Bac" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationBar contentMode="scaleToFill" id="ZyT-o9-hOB">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <items>
-                        <navigationItem title="Title" id="wxK-UQ-Vox">
-                            <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="YPU-lx-C0q"/>
-                        </navigationItem>
-                    </items>
-                </navigationBar>
             </objects>
             <point key="canvasLocation" x="1671" y="846"/>
         </scene>
