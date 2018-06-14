@@ -14,5 +14,6 @@ pod 'AlamofireImage'
 pod 'SVProgressHUD'
 pod 'Gloss'
 pod 'RealmSwift'
+pod 'Spring'
 
 end

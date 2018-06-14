@@ -11,7 +11,7 @@ import CoreML
 import Vision
 import SVProgressHUD
 import RealmSwift
-
+import Spring
 
 // TODO: Solve images not loading at first in tableviewcontroller
 
@@ -42,6 +42,19 @@ class ViewController: UIViewController, UITabBarDelegate, UIImagePickerControlle
         tabBar.items!.forEach({
             $0.title = nil
             $0.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0)
+        })
+        
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(startLongPressAnimation))
+        view.addGestureRecognizer(longPress)
+    }
+    
+    @objc func startLongPressAnimation(){
+        print("Long press")
+        collectionView.visibleCells.forEach({
+            let cell = $0 as! PastSearchCollectionViewCell
+            cell.springView.animation = "wobble"
+            cell.springView.
+            cell.springView.animate()
         })
     }
     

@@ -19,30 +19,43 @@
                 <rect key="frame" x="0.0" y="0.0" width="160" height="181"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qXu-4K-4G2">
-                        <rect key="frame" x="5" y="26" width="150" height="150"/>
-                    </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search Term" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EVY-vb-KQp">
-                        <rect key="frame" x="31.5" y="0.0" width="97" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="is2-Hj-zb1" customClass="SpringView" customModule="Spring">
+                        <rect key="frame" x="0.0" y="0.0" width="160" height="181"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search Term" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EVY-vb-KQp">
+                                <rect key="frame" x="31.5" y="0.0" width="97" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qXu-4K-4G2">
+                                <rect key="frame" x="5" y="26" width="150" height="150"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="qXu-4K-4G2" secondAttribute="trailing" constant="5" id="8fo-FF-ny8"/>
+                            <constraint firstItem="EVY-vb-KQp" firstAttribute="top" secondItem="is2-Hj-zb1" secondAttribute="top" id="Toy-rg-FeK"/>
+                            <constraint firstItem="qXu-4K-4G2" firstAttribute="leading" secondItem="is2-Hj-zb1" secondAttribute="leading" constant="5" id="m1M-zf-3aI"/>
+                            <constraint firstItem="qXu-4K-4G2" firstAttribute="top" secondItem="EVY-vb-KQp" secondAttribute="bottom" constant="5" id="r2N-CV-IMq"/>
+                            <constraint firstItem="EVY-vb-KQp" firstAttribute="centerX" secondItem="is2-Hj-zb1" secondAttribute="centerX" id="rqh-Nr-FSI"/>
+                            <constraint firstAttribute="bottom" secondItem="qXu-4K-4G2" secondAttribute="bottom" constant="5" id="x46-Tb-4Bo"/>
+                        </constraints>
+                    </view>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="EVY-vb-KQp" firstAttribute="centerX" secondItem="utR-Yj-bCE" secondAttribute="centerX" id="Fak-rW-6m9"/>
-                <constraint firstItem="qXu-4K-4G2" firstAttribute="top" secondItem="EVY-vb-KQp" secondAttribute="bottom" constant="5" id="QGB-cg-FqO"/>
-                <constraint firstAttribute="bottom" secondItem="qXu-4K-4G2" secondAttribute="bottom" constant="5" id="Soj-PU-QVh"/>
-                <constraint firstAttribute="trailing" secondItem="qXu-4K-4G2" secondAttribute="trailing" constant="5" id="XPg-iB-4je"/>
-                <constraint firstItem="qXu-4K-4G2" firstAttribute="leading" secondItem="1wX-cQ-9UE" secondAttribute="leading" constant="5" id="fkj-vV-YAQ"/>
-                <constraint firstItem="EVY-vb-KQp" firstAttribute="top" secondItem="1wX-cQ-9UE" secondAttribute="top" id="lSI-OV-Ujw"/>
+                <constraint firstItem="is2-Hj-zb1" firstAttribute="leading" secondItem="1wX-cQ-9UE" secondAttribute="leading" id="B6G-71-no7"/>
+                <constraint firstAttribute="bottom" secondItem="is2-Hj-zb1" secondAttribute="bottom" id="Ip9-Ew-QkM"/>
+                <constraint firstItem="is2-Hj-zb1" firstAttribute="top" secondItem="1wX-cQ-9UE" secondAttribute="top" id="Zce-lJ-LI2"/>
+                <constraint firstAttribute="trailing" secondItem="is2-Hj-zb1" secondAttribute="trailing" id="g70-qi-K88"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="utR-Yj-bCE"/>
             <size key="customSize" width="168" height="197"/>
             <connections>
                 <outlet property="searchImage" destination="qXu-4K-4G2" id="1hc-5n-j3i"/>
                 <outlet property="searchTermLabel" destination="EVY-vb-KQp" id="RL9-wK-GFq"/>
+                <outlet property="springView" destination="is2-Hj-zb1" id="dlb-kx-CFl"/>
             </connections>
             <point key="canvasLocation" x="68" y="39.5"/>
         </collectionViewCell>

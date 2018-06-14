@@ -8,6 +8,7 @@ PODS:
   - Realm/Headers (3.7.1)
   - RealmSwift (3.7.1):
     - Realm (= 3.7.1)
+  - Spring (1.0.5)
   - SVProgressHUD (2.2.5)
 
 DEPENDENCIES:
@@ -15,6 +16,7 @@ DEPENDENCIES:
   - AlamofireImage
   - Gloss
   - RealmSwift
+  - Spring
   - SVProgressHUD
 
 SPEC REPOS:
@@ -24,6 +26,7 @@ SPEC REPOS:
     - Gloss
     - Realm
     - RealmSwift
+    - Spring
     - SVProgressHUD
 
 SPEC CHECKSUMS:
@@ -32,8 +35,9 @@ SPEC CHECKSUMS:
   Gloss: b67617f327406adfd47adf20172d00680a3a31bd
   Realm: 906be37d52f17f25484ac01643a7f26a9d3bfbd5
   RealmSwift: 1c2b6bae3dc55bb87e080ffa96537d71442f6dce
+  Spring: 17901566c8ecf3a1327902b940406c64512f9bb1
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: f52bd0f3bd9e0e8021b9d739fcd2e79fc35b4565
+PODFILE CHECKSUM: 5496893cba681c7e47a9ab9d5c83fff746e76f9d
 
 COCOAPODS: 1.5.2
