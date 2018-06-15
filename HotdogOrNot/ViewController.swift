@@ -23,6 +23,9 @@ class ViewController: UIViewController {
     // MARK: Methods
     
     override func viewDidLoad() {
+        let nib = UINib.init(nibName: "PastSearchCollectionViewCell", bundle: nil)
+        collectionView.register(nib, forCellWithReuseIdentifier: "pastSearchCollectionViewCell")
+
         imagePicker.delegate = self
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -30,8 +33,8 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         pastSearchList = []
-        let mangedItems = RealmManager.shared.search(type: PastSearch.self)
-        mangedItems.forEach({
+        let managedItems = RealmManager.shared.search(type: PastSearch.self)
+        managedItems.forEach({
             let search = PastSearch(value: $0)
             pastSearchList.append(search) })
         pastSearchList.forEach({ $0.products.forEach({ $0.getImage() }) })

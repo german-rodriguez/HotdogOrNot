@@ -10,17 +10,12 @@ import UIKit
 import CoreML
 import Vision
 import ImageIO
-import SVProgressHUD
 import RealmSwift
 
-class CameraViewController: UIViewController {
+class CameraViewController: ViewController {
     // MARK: - IBOutlets
     
-    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var cameraButton: UIButton!
-    @IBOutlet weak var classificationLabel: UILabel!
-    
-    var productArray = [Product]()
     
     // MARK: - Image Classification
     
@@ -46,8 +41,6 @@ class CameraViewController: UIViewController {
     
     /// - Tag: PerformRequests
     func updateClassifications(for image: UIImage) {
-        classificationLabel.text = "Classifying..."
-        
         let orientation = CGImagePropertyOrientation(rawValue: UInt32(image.imageOrientation.rawValue))
         guard let ciImage = CIImage(image: image) else { fatalError("Unable to create \(CIImage.self) from \(image).") }
         
@@ -70,34 +63,14 @@ class CameraViewController: UIViewController {
     /// - Tag: ProcessClassifications
     func processClassifications(for request: VNRequest, error: Error?) {
         DispatchQueue.main.async {
-            guard let results = request.results else {
-                self.classificationLabel.text = "Unable to classify image.\n\(error!.localizedDescription)"
-                return
-            }
+            guard let results = request.results else { return }
             // The `results` will always be `VNClassificationObservation`s, as specified by the Core ML model in this project.
             let classifications = results as! [VNClassificationObservation]
-            if classifications.isEmpty {
-                self.classificationLabel.text = "Nothing recognized."
-            } else {
+            if !classifications.isEmpty {
                 // Display top classifications ranked by confidence in the UI.
                 let topClassifications = classifications.prefix(1)
                 let firstProductName = String(topClassifications.first!.identifier.split(separator: ",").first!)
-                self.classificationLabel.text = "Classification: " + firstProductName
-                SVProgressHUD.show()
-                API.shared.searchProduct(withName: firstProductName) { productArray in
-                    self.productArray = productArray
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        let search = PastSearch()
-                        let image = self.imageView.image!.cropToBounds(width: 299, height: 299)
-                        search.imageData = NSData(data: UIImagePNGRepresentation(image)!)
-                        search.name = firstProductName
-                        search.products = List<Product>()
-                        search.products.append(objectsIn: productArray)
-                        RealmManager.shared.create(object: search)
-                        SVProgressHUD.dismiss()
-                        self.performSegue(withIdentifier: "goToProducts", sender: nil)
-                    }
-                }
+                self.performSearch(withName: firstProductName)
             }
         }
     }
@@ -119,22 +92,10 @@ class CameraViewController: UIViewController {
         picker.sourceType = sourceType
         present(picker, animated: true)
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier! {
-        case "goToProducts":
-            guard let navController = segue.destination as? UINavigationController, let destination = navController.viewControllers.first as? ProductTableViewController else { return }
-            destination.productArray = productArray
-        default:
-            return
-        }
-    }
-}
 
-extension CameraViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     // MARK: - Handling Image Picker Selection
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
+    override func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
         picker.dismiss(animated: true)
         
         // We always expect `imagePickerController(:didFinishPickingMediaWithInfo:)` to supply the original image.
@@ -142,4 +103,5 @@ extension CameraViewController: UIImagePickerControllerDelegate, UINavigationCon
         imageView.image = image
         updateClassifications(for: image)
     }
+
 }
