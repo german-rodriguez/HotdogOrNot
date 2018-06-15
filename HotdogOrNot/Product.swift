@@ -29,11 +29,12 @@ class Product: Object, Glossy {
         averageRating.value = "reviews.rating_average" <~~ json
         hasFreeShipping = ("shipping.free_shipping" <~~ json ?? false)
         self.thumbnailURL = ("thumbnail" <~~ json ?? "")
+        self.getImage()
     }
     
-    func getImage(thumbnailURL: String) {
+    func getImage() {
         guard self.thumbnail != #imageLiteral(resourceName: "image-not-found") else { return }
-        API.shared.fetchImage(withURL: thumbnailURL) { (image) in
+        API.shared.fetchImage(withURL: self.thumbnailURL) { (image) in
             if let image = image {
                 self.thumbnail = image
             } else {

@@ -35,7 +35,7 @@ class ProductTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "productTableViewCell", for: indexPath) as! ProductTableViewCell
         let product = productArray[indexPath.row]
-        product.getImage(thumbnailURL: product.thumbnailURL)
+//        product.getImage(thumbnailURL: product.thumbnailURL)
         cell.setUp(title: product.title, hasFreeShipping: product.hasFreeShipping, acceptsMercadoPago: product.acceptsMercadopago, averageRating: product.averageRating.value, thumbnail: product.thumbnail)
         return cell
     }

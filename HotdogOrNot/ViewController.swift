@@ -2,130 +2,57 @@
 //  ViewController.swift
 //  HotdogOrNot
 //
-//  Created by SP21 on 31/5/18.
+//  Created by German Rodriguez on 6/14/18.
 //  Copyright © 2018 ucu.joliu. All rights reserved.
 //
 
 import UIKit
-import CoreML
-import Vision
 import SVProgressHUD
 import RealmSwift
-import Spring
 
-// TODO: Solve images not loading at first in tableviewcontroller
-
-class ViewController: UIViewController, UITabBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
-    @IBOutlet weak var tabBar: UITabBar!
+class ViewController: UIViewController {
+    
+    // MARK: Variables
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    let model = Inceptionv3()
-    let modelInputSize = CGSize(width: 299, height: 299)
+    var pastSearchList = [PastSearch]()
+    var productArray: [Product]?
     let imagePicker = UIImagePickerController()
     
-    var productArray: [Product]?
-    var pastSearchList: Results<PastSearch>?
+    // MARK: Methods
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        let nib = UINib.init(nibName: "PastSearchCollectionViewCell", bundle: nil)
-        collectionView.register(nib, forCellWithReuseIdentifier: "pastSearchCollectionViewCell")
-        
-        tabBar.delegate = self
         imagePicker.delegate = self
         collectionView.delegate = self
         collectionView.dataSource = self
-        
-        tabBar.items!.forEach({
-            $0.title = nil
-            $0.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0)
-        })
-        
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(startLongPressAnimation))
-        view.addGestureRecognizer(longPress)
-    }
-    
-    @objc func startLongPressAnimation(){
-        print("Long press")
-        collectionView.visibleCells.forEach({
-            let cell = $0 as! PastSearchCollectionViewCell
-            cell.springView.animation = "wobble"
-            cell.springView.
-            cell.springView.animate()
-        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if !UIImagePickerController.isSourceTypeAvailable(.camera){
-            print("no cam")
-            tabBar.selectedItem = tabBar.items![1]
-        } else {
-            tabBar.selectedItem = tabBar.items![0]
-        }
-        pastSearchList = RealmManager.shared.search(type: PastSearch.self)
+        pastSearchList = []
+        let mangedItems = RealmManager.shared.search(type: PastSearch.self)
+        mangedItems.forEach({
+            let search = PastSearch(value: $0)
+            pastSearchList.append(search) })
+        pastSearchList.forEach({ $0.products.forEach({ $0.getImage() }) })
         collectionView.reloadData()
-        
-        super.viewWillAppear(animated)
     }
     
-    // MARK: Tab bar
-
-    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        switch item.tag {
-        case 0:
-            print("camera")
-            if !UIImagePickerController.isSourceTypeAvailable(.camera){
-                let alert = UIAlertController(title: nil, message: "Device camera is unavailable", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
-                self.present(alert, animated: true)
-            }
-        case 1:
-            imagePicker.allowsEditing = false
-            imagePicker.sourceType = .photoLibrary
-            present(imagePicker, animated: true, completion: nil)
-            print("image")
-        case 2:
-            print("draw")
-        default:
-            return
-        }
-    }
-
-    // MARK: Image picker
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
-        guard var image = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
-        imageView.contentMode = .scaleAspectFit
-        image = image.cropToBounds(width: 299, height: 299)
-        imageView.image = image
-        dismiss(animated: true, completion: nil)
-        let resizedImage = image.resizeImage(targetSize: modelInputSize)
-        guard let cgImage = resizedImage.cgImage, let pixelBuffer = ImageConverter.pixelBuffer(from: cgImage)?.takeRetainedValue(),
-        let output = try? model.prediction(image: pixelBuffer) else { return }
-        print(output.classLabel.split(separator: ","))
-        let firstProductName = String(output.classLabel.split(separator: ",").first!)
-
-        if let search = pastSearchList?.filter({ return $0.name == firstProductName }).first {
-            self.productArray = [Product](search.products)
-            self.performSegue(withIdentifier: "goToProducts", sender: nil)
-        } else {
-            SVProgressHUD.show()
-            API.shared.searchProduct(withName: firstProductName) { productArray in
-                self.productArray = productArray
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    let search = PastSearch()
-                    search.imageData = NSData(data: UIImagePNGRepresentation(image)!)
-                    search.name = firstProductName
-                    search.products = List<Product>()
-                    search.products.append(objectsIn: productArray)
-                    RealmManager.shared.create(object: search)
-                    SVProgressHUD.dismiss()
-                    self.performSegue(withIdentifier: "goToProducts", sender: nil)
-                }
+    // MARK: Search
+    func performSearch(withName productName: String){
+        SVProgressHUD.show()
+        API.shared.searchProduct(withName: productName) { productArray in
+            self.productArray = productArray
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                let search = PastSearch()
+                let image = self.imageView.image!.cropToBounds(width: 299, height: 299)
+                search.imageData = NSData(data: UIImagePNGRepresentation(image)!)
+                search.name = productName
+                search.products = List<Product>()
+                search.products.append(objectsIn: productArray)
+                RealmManager.shared.create(object: search)
+                SVProgressHUD.dismiss()
+                self.performSegue(withIdentifier: "goToProducts", sender: nil)
             }
         }
     }
@@ -141,22 +68,31 @@ class ViewController: UIViewController, UITabBarDelegate, UIImagePickerControlle
     }
 }
 
+// MARK: - CollectionView Methods
 extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return pastSearchList?.count ?? 0
+        return pastSearchList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "pastSearchCollectionViewCell", for: indexPath) as! PastSearchCollectionViewCell
-        let pastSearch = pastSearchList![indexPath.row]
+        let pastSearch = pastSearchList[indexPath.row]
         cell.setUp(searchTerm: pastSearch.name, imageData: pastSearch.imageData)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         var products = [Product]()
-        products.append(contentsOf: pastSearchList![indexPath.row].products)
+        products.append(contentsOf: pastSearchList[indexPath.row].products)
         self.productArray = products
+        imageView.image = UIImage(data: pastSearchList[indexPath.row].imageData as Data)
         performSegue(withIdentifier: "goToProducts", sender: nil)
+    }
+}
+
+// MARK: ImagePicker
+extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        fatalError("Override")
     }
 }

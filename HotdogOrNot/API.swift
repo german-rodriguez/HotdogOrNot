@@ -38,6 +38,7 @@ class API {
                 print(results)
                 var resultsArray = [Product]()
                 results.forEach({ if let result = Product(json: $0) {
+                    result.getImage()
                     resultsArray.append(result)
                     }})
                 try? completion?(resultsArray)
