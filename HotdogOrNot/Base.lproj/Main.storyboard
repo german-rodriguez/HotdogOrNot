@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="elZ-ml-WCO">
+                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="elZ-ml-WCO">
                                 <rect key="frame" x="0.0" y="65" width="375" height="372"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="375" id="NlW-Bz-i88"/>
@@ -31,7 +31,7 @@
                                     <action selector="takePicture" destination="Bsa-SI-mW4" eventType="touchUpInside" id="gm9-Ad-SCO"/>
                                 </connections>
                             </button>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Mha-o0-IDf">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Mha-o0-IDf">
                                 <rect key="frame" x="0.0" y="437" width="375" height="181"/>
                                 <color key="backgroundColor" red="0.98431372549999996" green="0.0" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -96,7 +96,7 @@
                                     <action selector="actionAddImage:" destination="2Jj-xq-V75" eventType="touchUpInside" id="YQl-gi-85f"/>
                                 </connections>
                             </button>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hWX-lr-Acp">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hWX-lr-Acp">
                                 <rect key="frame" x="0.0" y="437" width="375" height="181"/>
                                 <color key="backgroundColor" red="0.98431372549999996" green="0.0" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -119,7 +119,7 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="P0T-Q7-hil">
+                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="P0T-Q7-hil">
                                 <rect key="frame" x="0.0" y="65" width="375" height="372"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="375" id="vne-fa-fhD"/>

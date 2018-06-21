@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
     
+    var cellWobble: Bool = false
     var pastSearchList = [PastSearch]()
     var productArray: [Product]?
     let imagePicker = UIImagePickerController()
@@ -29,15 +30,31 @@ class ViewController: UIViewController {
         imagePicker.delegate = self
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        let longTap = UILongPressGestureRecognizer(target: self, action: #selector(startWobblingCells))
+        collectionView.addGestureRecognizer(longTap)
+        let shortTap = UITapGestureRecognizer(target: self, action: #selector(stopWobblingCells))
+        imageView.addGestureRecognizer(shortTap)
+    }
+    
+    @objc func startWobblingCells(){
+        cellWobble = true
+        collectionView.visibleCells.forEach({ cell in
+            guard let cell = cell as? PastSearchCollectionViewCell else { return }
+            cell.startWobbling()
+        })
+    }
+    
+    @objc func stopWobblingCells(){
+        cellWobble = false
+        collectionView.visibleCells.forEach({ cell in
+            guard let cell = cell as? PastSearchCollectionViewCell else { return }
+            cell.stopWobbling()
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        pastSearchList = []
-        let managedItems = RealmManager.shared.search(type: PastSearch.self)
-        managedItems.forEach({
-            let search = PastSearch(value: $0)
-            pastSearchList.append(search) })
-        pastSearchList.forEach({ $0.products.forEach({ $0.getImage() }) })
+        loadPastSearchData()
         collectionView.reloadData()
     }
     
@@ -69,6 +86,15 @@ class ViewController: UIViewController {
             return
         }
     }
+    
+    func loadPastSearchData(){
+        pastSearchList = []
+        let managedItems = RealmManager.shared.search(type: PastSearch.self)
+        managedItems.forEach({
+            let search = PastSearch(value: $0)
+            pastSearchList.append(search) })
+        pastSearchList.forEach({ $0.products.forEach({ $0.getImage() }) })
+    }
 }
 
 // MARK: - CollectionView Methods
@@ -85,11 +111,38 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        var products = [Product]()
-        products.append(contentsOf: pastSearchList[indexPath.row].products)
-        self.productArray = products
-        imageView.image = UIImage(data: pastSearchList[indexPath.row].imageData as Data)
-        performSegue(withIdentifier: "goToProducts", sender: nil)
+        guard let cell = collectionView.cellForItem(at: indexPath) as? PastSearchCollectionViewCell else { return }
+        if cell.isWobbling {
+            let alert = UIAlertController(title: nil, message: "Delete \(cell.searchTermLabel.text!)", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_) in
+                let search = self.pastSearchList[indexPath.row]
+                RealmManager.shared.delete(type: PastSearch.self, key: search.name)
+                self.loadPastSearchData()
+                self.collectionView.reloadData()
+            }))
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: { _ in self.stopWobblingCells() }))
+            self.present(alert, animated: true)
+        } else {
+            var products = [Product]()
+            products.append(contentsOf: pastSearchList[indexPath.row].products)
+            self.productArray = products
+            imageView.image = UIImage(data: pastSearchList[indexPath.row].imageData as Data)
+            performSegue(withIdentifier: "goToProducts", sender: nil)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let cell = cell as? PastSearchCollectionViewCell else { return }
+        if cellWobble, !cell.isWobbling {
+            cell.startWobbling()
+        } else {
+            cell.stopWobbling()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let cell = cell as? PastSearchCollectionViewCell else { return }
+        cell.stopWobbling()
     }
 }
 

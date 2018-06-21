@@ -21,4 +21,8 @@ import RealmSwift
         self.imageData = imageData
         self.products.append(objectsIn: products)
     }
+    
+    override static func primaryKey() -> String? {
+        return "name"
+    }
 }

@@ -24,8 +24,15 @@ class RealmManager {
         }
     }
     
-    func delete(object: Object) {
-        realm.delete(object)
+    func delete<T: Object>(type: T.Type, key: String) {
+        guard let results = realm.object(ofType: type, forPrimaryKey: key) else { return }
+        do {
+            try realm.write {
+                realm.delete(results)
+            }
+        } catch(let error) {
+            print(error)
+        }
     }
     
     func search<T: Object>(type: T.Type) -> Results<T>{
