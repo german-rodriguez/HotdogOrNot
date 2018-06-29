@@ -68,8 +68,8 @@ class CameraViewController: ViewController {
             let classifications = results as! [VNClassificationObservation]
             if !classifications.isEmpty {
                 // Display top classifications ranked by confidence in the UI.
-                let topClassifications = classifications.prefix(1)
-                let firstProductName = String(topClassifications.first!.identifier.split(separator: ",").first!)
+                guard let topClassification = classifications.first else { return }
+                let firstProductName = String(topClassification.identifier.split(separator: ",").first!)
                 self.performSearch(withName: firstProductName)
             }
         }

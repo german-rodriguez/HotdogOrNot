@@ -70,7 +70,7 @@ class ViewController: UIViewController {
                 search.name = productName
                 search.products = List<Product>()
                 search.products.append(objectsIn: productArray)
-                RealmManager.shared.create(object: search)
+                RealmManager.shared.create(object: search, key: search.name)
                 SVProgressHUD.dismiss()
                 self.performSegue(withIdentifier: "goToProducts", sender: nil)
             }
@@ -113,10 +113,10 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? PastSearchCollectionViewCell else { return }
         if cell.isWobbling {
-            let alert = UIAlertController(title: nil, message: "Delete \(cell.searchTermLabel.text!)", preferredStyle: .alert)
+            let alert = UIAlertController(title: nil, message: "Delete \(cell.searchTermLabel.text!)?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_) in
                 let search = self.pastSearchList[indexPath.row]
-                RealmManager.shared.delete(type: PastSearch.self, key: search.name)
+                RealmManager.shared.delete(key: search.name)
                 self.loadPastSearchData()
                 self.collectionView.reloadData()
             }))

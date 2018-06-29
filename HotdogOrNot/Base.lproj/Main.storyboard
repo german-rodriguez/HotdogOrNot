@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="elZ-ml-WCO">
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="elZ-ml-WCO">
                                 <rect key="frame" x="0.0" y="65" width="375" height="372"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="375" id="NlW-Bz-i88"/>
@@ -26,6 +26,9 @@
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="stx-Ll-HvK">
                                 <rect key="frame" x="270" y="30" width="85" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="MU6-OC-9IJ"/>
+                                </constraints>
                                 <state key="normal" title="Take Picture"/>
                                 <connections>
                                     <action selector="takePicture" destination="Bsa-SI-mW4" eventType="touchUpInside" id="gm9-Ad-SCO"/>
@@ -33,7 +36,7 @@
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Mha-o0-IDf">
                                 <rect key="frame" x="0.0" y="437" width="375" height="181"/>
-                                <color key="backgroundColor" red="0.98431372549999996" green="0.0" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.97647058819999999" green="0.96862745100000003" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="181" id="Zt8-FS-Yp6"/>
                                 </constraints>
@@ -55,7 +58,7 @@
                                 </cells>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.97647058819999999" green="0.96862745100000003" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="elZ-ml-WCO" firstAttribute="leading" secondItem="eWP-SV-vWJ" secondAttribute="leading" id="2Ub-5H-JHM"/>
                             <constraint firstItem="Mha-o0-IDf" firstAttribute="top" secondItem="elZ-ml-WCO" secondAttribute="bottom" id="5cB-Ps-xN0"/>
@@ -91,6 +94,9 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r1B-uc-cVX">
                                 <rect key="frame" x="281" y="30" width="74" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="eRj-3f-wbK"/>
+                                </constraints>
                                 <state key="normal" title="Add Image"/>
                                 <connections>
                                     <action selector="actionAddImage:" destination="2Jj-xq-V75" eventType="touchUpInside" id="YQl-gi-85f"/>
@@ -98,7 +104,7 @@
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hWX-lr-Acp">
                                 <rect key="frame" x="0.0" y="437" width="375" height="181"/>
-                                <color key="backgroundColor" red="0.98431372549999996" green="0.0" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.97647058823529409" green="0.96862745098039216" blue="0.80392156862745101" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="181" id="B0k-K8-0su"/>
                                 </constraints>
@@ -119,14 +125,14 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="P0T-Q7-hil">
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="P0T-Q7-hil">
                                 <rect key="frame" x="0.0" y="65" width="375" height="372"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="375" id="vne-fa-fhD"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.97647058819999999" green="0.96862745100000003" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="r1B-uc-cVX" firstAttribute="top" secondItem="Hlq-dz-vnv" secondAttribute="top" constant="10" id="6B6-8C-uwh"/>
                             <constraint firstItem="hWX-lr-Acp" firstAttribute="leading" secondItem="Hlq-dz-vnv" secondAttribute="leading" id="DUE-wa-hkZ"/>

@@ -14,7 +14,8 @@ class RealmManager {
     static var shared = RealmManager()
     private var realm = try! Realm()
     
-    func create(object: Object) {
+    func create(object: Object, key: String) {
+        guard realm.object(ofType: PastSearch.self, forPrimaryKey: key) == nil else { return }
         do {
             try realm.write {
                 realm.add(object)
@@ -24,11 +25,13 @@ class RealmManager {
         }
     }
     
-    func delete<T: Object>(type: T.Type, key: String) {
-        guard let results = realm.object(ofType: type, forPrimaryKey: key) else { return }
+    func delete(key: String) {
+        guard let result = realm.object(ofType: PastSearch.self, forPrimaryKey: key) else { return }
+        
         do {
             try realm.write {
-                realm.delete(results)
+                result.products.forEach({ realm.delete($0) })
+                realm.delete(result)
             }
         } catch(let error) {
             print(error)
